@@ -11,6 +11,7 @@
 		"cf-typegen": "wrangler types --env-interface CloudflareBindings"
 	},
 	"dependencies": {
+		"@fontsource-variable/plus-jakarta-sans": "^5.2.8",
 		"@tailwindcss/vite": "^4.1.14",
 		"hono": "^4.9.9",
 		"tailwindcss": "^4.1.14"
