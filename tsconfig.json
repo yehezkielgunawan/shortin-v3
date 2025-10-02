@@ -6,10 +6,10 @@
     "strict": true,
     "skipLibCheck": true,
     "lib": ["ESNext", "DOM"],
-    "types": ["vite/client"],
+    "types": ["vite/client", "node"],
     "jsx": "react-jsx",
     "jsxImportSource": "hono/jsx",
-    // import alias to enable a˝bsolute path
+    // path alias to enable absolute imports
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]
