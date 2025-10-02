@@ -11,9 +11,12 @@ importers:
       '@fontsource-variable/plus-jakarta-sans':
         specifier: ^5.2.8
         version: 5.2.8
+      '@hono/zod-validator':
+        specifier: ^0.2.2
+        version: 0.2.2(hono@4.9.9)(zod@3.25.76)
       '@tailwindcss/vite':
         specifier: ^4.1.14
-        version: 4.1.14(vite@6.3.6(jiti@2.6.1)(lightningcss@1.30.1))
+        version: 4.1.14(vite@6.3.6(@types/node@20.19.19)(jiti@2.6.1)(lightningcss@1.30.1))
       googleapis:
         specifier: ^161.0.0
         version: 161.0.0
@@ -26,16 +29,28 @@ importers:
       tailwindcss:
         specifier: ^4.1.14
         version: 4.1.14
+      uuid:
+        specifier: ^9.0.1
+        version: 9.0.1
+      zod:
+        specifier: ^3.23.8
+        version: 3.25.76
     devDependencies:
       '@biomejs/biome':
         specifier: 2.2.5
         version: 2.2.5
       '@cloudflare/vite-plugin':
         specifier: ^1.2.3
-        version: 1.13.8(vite@6.3.6(jiti@2.6.1)(lightningcss@1.30.1))(workerd@1.20250927.0)(wrangler@4.40.3)
+        version: 1.13.8(vite@6.3.6(@types/node@20.19.19)(jiti@2.6.1)(lightningcss@1.30.1))(workerd@1.20250927.0)(wrangler@4.40.3)
+      '@types/node':
+        specifier: ^20.11.19
+        version: 20.19.19
+      '@types/uuid':
+        specifier: ^9.0.0
+        version: 9.0.8
       vite:
         specifier: ^6.3.5
-        version: 6.3.6(jiti@2.6.1)(lightningcss@1.30.1)
+        version: 6.3.6(@types/node@20.19.19)(jiti@2.6.1)(lightningcss@1.30.1)
       vite-ssr-components:
         specifier: ^0.5.1
         version: 0.5.1
@@ -500,6 +515,12 @@ packages:
   '@fontsource-variable/plus-jakarta-sans@5.2.8':
     resolution: {integrity: sha512-iQecBizIdZxezODNHzOn4SvvRMrZL/S8k4MEXGDynCmUrImVW0VmX+tIAMqnADwH4haXlHSXqMgU6+kcfBQJdw==}
 
+  '@hono/zod-validator@0.2.2':
+    resolution: {integrity: sha512-dSDxaPV70Py8wuIU2QNpoVEIOSzSXZ/6/B/h4xA7eOMz7+AarKTSGV8E6QwrdcCbBLkpqfJ4Q2TmBO0eP1tCBQ==}
+    peerDependencies:
+      hono: '>=3.9.0'
+      zod: ^3.19.1
+
   '@img/sharp-darwin-arm64@0.33.5':
     resolution: {integrity: sha512-UT4p+iz/2H4twwAoLCqfA9UH5pI6DggwKEGuaPy7nCVQ8ZsiY5PIcrRvD1DzuY3qYL07NtIQcWnBSY/heikIFQ==}
     engines: {node: ^18.17.0 || ^20.3.0 || >=21.0.0}
@@ -849,6 +870,12 @@ packages:
 
   '@types/estree@1.0.8':
     resolution: {integrity: sha512-dWHzHa2WqEXI/O1E9OjrocMTKJl2mSrEolh1Iomrv6U+JuNwaHXsXx9bLu5gG7BUWFIN0skIQJQ/L1rIex4X6w==}
+
+  '@types/node@20.19.19':
+    resolution: {integrity: sha512-pb1Uqj5WJP7wrcbLU7Ru4QtA0+3kAXrkutGiD26wUKzSMgNNaPARTUDQmElUXp64kh3cWdou3Q0C7qwwxqSFmg==}
+
+  '@types/uuid@9.0.8':
+    resolution: {integrity: sha512-jg+97EGIcY9AGHJJRaaPVgetKDsrTgbRjQ5Msgjh/DQKEFl0DtyRr/VCOyD1T2R1MNeWPK/u7JoGhlDZnKBAfA==}
 
   acorn-walk@8.3.2:
     resolution: {integrity: sha512-cjkyv4OtNCIeqhHrfS81QWXoCBPExR/J62oyEqepVw8WaQeSqpW2uhuLPh1m9eWhDuOo/jUXVTlifvesOWp/4A==}
@@ -1298,6 +1325,9 @@ packages:
   ufo@1.6.1:
     resolution: {integrity: sha512-9a4/uxlTWJ4+a5i0ooc1rU7C7YOw3wT+UGqdeNNHWnOF9qcMBgLRS+4IYUqbczewFx4mLEig6gawh7X6mFlEkA==}
 
+  undici-types@6.21.0:
+    resolution: {integrity: sha512-iwDZqg0QAGrg9Rav5H4n0M64c3mkR59cJ6wQp+7C4nI0gsmExaedaYLNO44eT4AtBBwjbTiGPMlt2Md0T9H9JQ==}
+
   undici@7.14.0:
     resolution: {integrity: sha512-Vqs8HTzjpQXZeXdpsfChQTlafcMQaaIwnGwLam1wudSSjlJeQ3bw1j+TLPePgrCnCpUXx7Ba5Pdpf5OBih62NQ==}
     engines: {node: '>=20.18.1'}
@@ -1307,6 +1337,10 @@ packages:
 
   url-template@2.0.8:
     resolution: {integrity: sha512-XdVKMF4SJ0nP/O7XIPB0JwAEuT9lDIYnNsK8yGVe43y0AWoKeJNdv3ZNWh7ksJ6KqQFjOO6ox/VEitLnaVNufw==}
+
+  uuid@9.0.1:
+    resolution: {integrity: sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==}
+    hasBin: true
 
   vite-ssr-components@0.5.1:
     resolution: {integrity: sha512-goIYNqpBXgQC76+2uPYQSZWBZ0WegODQgZe+IvoTGHkiIZV0vQvC0zqU227FDj6SrKC1wB6347oaTDDknq+ZGw==}
@@ -1395,6 +1429,9 @@ packages:
 
   zod@3.22.3:
     resolution: {integrity: sha512-EjIevzuJRiRPbVH4mGc8nApb/lVLKVpmUhAaR5R5doKGfAnGJ6Gr3CViAVjP+4FWSxCsybeWQdcgCtbX+7oZug==}
+
+  zod@3.25.76:
+    resolution: {integrity: sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==}
 
 snapshots:
 
@@ -1490,7 +1527,7 @@ snapshots:
     optionalDependencies:
       workerd: 1.20250927.0
 
-  '@cloudflare/vite-plugin@1.13.8(vite@6.3.6(jiti@2.6.1)(lightningcss@1.30.1))(workerd@1.20250927.0)(wrangler@4.40.3)':
+  '@cloudflare/vite-plugin@1.13.8(vite@6.3.6(@types/node@20.19.19)(jiti@2.6.1)(lightningcss@1.30.1))(workerd@1.20250927.0)(wrangler@4.40.3)':
     dependencies:
       '@cloudflare/unenv-preset': 2.7.5(unenv@2.0.0-rc.21)(workerd@1.20250927.0)
       '@remix-run/node-fetch-server': 0.8.1
@@ -1499,7 +1536,7 @@ snapshots:
       picocolors: 1.1.1
       tinyglobby: 0.2.15
       unenv: 2.0.0-rc.21
-      vite: 6.3.6(jiti@2.6.1)(lightningcss@1.30.1)
+      vite: 6.3.6(@types/node@20.19.19)(jiti@2.6.1)(lightningcss@1.30.1)
       wrangler: 4.40.3
       ws: 8.18.0
     transitivePeerDependencies:
@@ -1685,6 +1722,11 @@ snapshots:
     optional: true
 
   '@fontsource-variable/plus-jakarta-sans@5.2.8': {}
+
+  '@hono/zod-validator@0.2.2(hono@4.9.9)(zod@3.25.76)':
+    dependencies:
+      hono: 4.9.9
+      zod: 3.25.76
 
   '@img/sharp-darwin-arm64@0.33.5':
     optionalDependencies:
@@ -1937,14 +1979,20 @@ snapshots:
       '@tailwindcss/oxide-win32-arm64-msvc': 4.1.14
       '@tailwindcss/oxide-win32-x64-msvc': 4.1.14
 
-  '@tailwindcss/vite@4.1.14(vite@6.3.6(jiti@2.6.1)(lightningcss@1.30.1))':
+  '@tailwindcss/vite@4.1.14(vite@6.3.6(@types/node@20.19.19)(jiti@2.6.1)(lightningcss@1.30.1))':
     dependencies:
       '@tailwindcss/node': 4.1.14
       '@tailwindcss/oxide': 4.1.14
       tailwindcss: 4.1.14
-      vite: 6.3.6(jiti@2.6.1)(lightningcss@1.30.1)
+      vite: 6.3.6(@types/node@20.19.19)(jiti@2.6.1)(lightningcss@1.30.1)
 
   '@types/estree@1.0.8': {}
+
+  '@types/node@20.19.19':
+    dependencies:
+      undici-types: 6.21.0
+
+  '@types/uuid@9.0.8': {}
 
   acorn-walk@8.3.2: {}
 
@@ -2459,6 +2507,8 @@ snapshots:
 
   ufo@1.6.1: {}
 
+  undici-types@6.21.0: {}
+
   undici@7.14.0: {}
 
   unenv@2.0.0-rc.21:
@@ -2471,6 +2521,8 @@ snapshots:
 
   url-template@2.0.8: {}
 
+  uuid@9.0.1: {}
+
   vite-ssr-components@0.5.1:
     dependencies:
       '@babel/parser': 7.28.4
@@ -2479,7 +2531,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  vite@6.3.6(jiti@2.6.1)(lightningcss@1.30.1):
+  vite@6.3.6(@types/node@20.19.19)(jiti@2.6.1)(lightningcss@1.30.1):
     dependencies:
       esbuild: 0.25.10
       fdir: 6.5.0(picomatch@4.0.3)
@@ -2488,6 +2540,7 @@ snapshots:
       rollup: 4.52.3
       tinyglobby: 0.2.15
     optionalDependencies:
+      '@types/node': 20.19.19
       fsevents: 2.3.3
       jiti: 2.6.1
       lightningcss: 1.30.1
@@ -2536,3 +2589,5 @@ snapshots:
       youch-core: 0.3.3
 
   zod@3.22.3: {}
+
+  zod@3.25.76: {}

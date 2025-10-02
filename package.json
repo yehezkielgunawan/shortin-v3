@@ -1,29 +1,33 @@
 {
-	"name": "shortin-v3",
-	"type": "module",
-	"scripts": {
-		"dev": "vite",
-		"build": "vite build",
-		"biome:lint": "biome lint --fix",
-		"biome:format": "biome format --write",
-		"cf:preview": "$npm_execpath run build && vite preview",
-		"cf:deploy": "$npm_execpath run build && wrangler deploy",
-		"cf-typegen": "wrangler types --env-interface CloudflareBindings"
-	},
-	"dependencies": {
-		"@fontsource-variable/plus-jakarta-sans": "^5.2.8",
-		"@tailwindcss/vite": "^4.1.14",
-		"googleapis": "^161.0.0",
-		"hono": "^4.9.9",
-		"hono-rate-limiter": "^0.4.2",
-		"tailwindcss": "^4.1.14"
-	},
-	"devDependencies": {
-		"@biomejs/biome": "2.2.5",
-		"@cloudflare/vite-plugin": "^1.2.3",
-		"vite": "^6.3.5",
-		"vite-ssr-components": "^0.5.1",
-		"wrangler": "^4.17.0"
-	},
-	"packageManager": "pnpm@10.17.1+sha512.17c560fca4867ae9473a3899ad84a88334914f379be46d455cbf92e5cf4b39d34985d452d2583baf19967fa76cb5c17bc9e245529d0b98745721aa7200ecaf7a"
+  "name": "shortin-v3",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "biome:lint": "biome lint --fix",
+    "biome:format": "biome format --write",
+    "cf:preview": "$npm_execpath run build && vite preview",
+    "cf:deploy": "$npm_execpath run build && wrangler deploy",
+    "cf-typegen": "wrangler types --env-interface CloudflareBindings"
+  },
+  "dependencies": {
+    "@fontsource-variable/plus-jakarta-sans": "^5.2.8",
+    "@tailwindcss/vite": "^4.1.14",
+    "hono": "^4.9.9",
+    "hono-rate-limiter": "^0.4.2",
+    "tailwindcss": "^4.1.14",
+    "zod": "^3.23.8",
+    "uuid": "^9.0.1",
+    "@hono/zod-validator": "^0.2.2"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.2.5",
+    "@cloudflare/vite-plugin": "^1.2.3",
+    "vite": "^6.3.5",
+    "vite-ssr-components": "^0.5.1",
+    "wrangler": "^4.17.0",
+    "@types/uuid": "^9.0.0",
+    "@types/node": "^20.11.19"
+  },
+  "packageManager": "pnpm@10.17.1+sha512.17c560fca4867ae9473a3899ad84a88334914f379be46d455cbf92e5cf4b39d34985d452d2583baf19967fa76cb5c17bc9e245529d0b98745721aa7200ecaf7a"
 }
