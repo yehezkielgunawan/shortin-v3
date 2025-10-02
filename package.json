@@ -15,6 +15,7 @@
 		"@tailwindcss/vite": "^4.1.14",
 		"googleapis": "^161.0.0",
 		"hono": "^4.9.9",
+		"hono-rate-limiter": "^0.4.2",
 		"tailwindcss": "^4.1.14"
 	},
 	"devDependencies": {
