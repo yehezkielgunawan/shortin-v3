@@ -1,18 +1,18 @@
 {
-	"compilerOptions": {
-		"target": "ESNext",
-		"module": "ESNext",
-		"moduleResolution": "Bundler",
-		"strict": true,
-		"skipLibCheck": true,
-		"lib": ["ESNext", "DOM"],
-		"types": ["vite/client"],
-		"jsx": "react-jsx",
-		"jsxImportSource": "hono/jsx",
-		// import alias to enable absolute path
-		"baseUrl": ".",
-		"paths": {
-			"@/*": ["src/*"]
-		}
-	}
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "strict": true,
+    "skipLibCheck": true,
+    "lib": ["ESNext", "DOM"],
+    "types": ["vite/client"],
+    "jsx": "react-jsx",
+    "jsxImportSource": "hono/jsx",
+    // import alias to enable a˝bsolute path
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
+  }
 }
