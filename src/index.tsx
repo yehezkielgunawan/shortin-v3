@@ -1,5 +1,5 @@
 import { Hono } from "hono";
-import { renderer } from "./renderer";
+import { renderer } from "@/renderer";
 
 const app = new Hono();
 
