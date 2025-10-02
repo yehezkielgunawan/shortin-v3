@@ -1,0 +1,25 @@
+{
+	"name": "shortin-v3",
+	"type": "module",
+	"scripts": {
+		"dev": "vite",
+		"build": "vite build",
+		"biome:lint": "biome lint --fix",
+		"biome:format": "biome format --write",
+		"cf:preview": "$npm_execpath run build && vite preview",
+		"cf:deploy": "$npm_execpath run build && wrangler deploy",
+		"cf-typegen": "wrangler types --env-interface CloudflareBindings"
+	},
+	"dependencies": {
+		"@tailwindcss/vite": "^4.1.14",
+		"hono": "^4.9.9",
+		"tailwindcss": "^4.1.14"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "2.2.5",
+		"@cloudflare/vite-plugin": "^1.2.3",
+		"vite": "^6.3.5",
+		"vite-ssr-components": "^0.5.1",
+		"wrangler": "^4.17.0"
+	}
+}
