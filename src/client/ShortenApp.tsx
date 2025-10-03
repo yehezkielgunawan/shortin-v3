@@ -43,10 +43,27 @@ interface ShortenAppProps {
 }
 
 /**
- * Utility: Build the base URL (origin + slash)
+ * Utility: Build the base URL (origin + slash), preferring configured BASE_URL.
+ * Order of precedence (first non-empty wins):
+ *  1. Explicit window.__BASE_URL__ (can be injected server-side)
+ *  2. import.meta.env.BASE_URL (Vite style) or import.meta.env.VITE_BASE_URL
+ *  3. window.BASE_URL (legacy/global)
+ *  4. window.location.origin + '/'
  */
 function getOriginBase(): string {
   if (typeof window === "undefined") return "/";
+  const globalAny = window as any;
+  const injected =
+    globalAny.__BASE_URL__ ||
+    (typeof import.meta !== "undefined" &&
+      (import.meta as any).env &&
+      ((import.meta as any).env.BASE_URL ||
+        (import.meta as any).env.VITE_BASE_URL)) ||
+    globalAny.BASE_URL;
+  if (injected && typeof injected === "string" && injected.trim().length > 0) {
+    return injected.endsWith("/") ? injected : injected + "/";
+  }
+
   return window.location.origin + "/";
 }
 
@@ -130,17 +147,18 @@ export const ShortenApp = ({
 
       const success = data as ApiSuccess;
       // If API returns baseUrl (from BASE_URL env), prefer it & normalize trailing slash
-      if (success.baseUrl) {
+      let effectiveBase = base;
+      if (success.baseUrl && success.baseUrl.trim().length > 0) {
         const normalized = success.baseUrl.endsWith("/")
           ? success.baseUrl
           : success.baseUrl + "/";
         setBase(normalized);
+        effectiveBase = normalized;
+      } else {
+        // Re-evaluate in case env became available after hydration
+        effectiveBase = getOriginBase();
+        setBase(effectiveBase);
       }
-      const effectiveBase = success.baseUrl
-        ? success.baseUrl.endsWith("/")
-          ? success.baseUrl
-          : success.baseUrl + "/"
-        : base;
       const final = effectiveBase + success.shortCode;
       setShortUrl(final);
       setStatus("Short link created!");
