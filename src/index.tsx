@@ -39,9 +39,213 @@ function getSheetsEnv(c: any) {
   };
 }
 
+/* ----------------------------------------------------------------------------
+ * UI Components (hono/jsx) - no React dependency required
+ * -------------------------------------------------------------------------- */
+
+type JsonResultProps = { id?: string };
+const JsonResult = ({ id = "result" }: JsonResultProps) => (
+  <pre
+    id={id}
+    class="bg-neutral-100 rounded p-4 w-full max-w-xl text-xs sm:text-sm overflow-x-auto min-h-32"
+  >
+    Submit the form to see the API response here.
+  </pre>
+);
+
+interface ShortenFormProps {
+  action?: string;
+  resultId?: string;
+}
+
+const ShortenForm = ({
+  action = "/shorten",
+  resultId = "result",
+}: ShortenFormProps) => (
+  <form
+    class="flex flex-col gap-4 w-full max-w-xl"
+    method="post"
+    action={action}
+    id="shorten-form"
+  >
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium" for="url">
+        Long URL
+      </label>
+      <input
+        id="url"
+        name="url"
+        placeholder="https://example.com/very/long/url"
+        class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-black/40"
+        required
+      />
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium" for="shortCodeInput">
+        Custom Short Code (optional)
+      </label>
+      <input
+        id="shortCodeInput"
+        name="shortCodeInput"
+        placeholder="your-alias"
+        class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-black/40"
+      />
+      <p class="text-xs text-neutral-500">
+        3–30 chars. Letters, numbers, underscore, hyphen.
+      </p>
+    </div>
+
+    <div class="flex items-center gap-4">
+      <button
+        type="submit"
+        class="bg-black text-white rounded px-5 py-2 font-medium hover:bg-neutral-800 transition"
+      >
+        Shorten
+      </button>
+      <button
+        type="button"
+        data-reset
+        class="text-sm text-neutral-600 hover:text-black"
+      >
+        Reset
+      </button>
+    </div>
+
+    <script
+      dangerouslySetInnerHTML={{
+        __html: `
+        (function(){
+          const form = document.getElementById('shorten-form');
+          if(!form) return;
+          const resultEl = document.getElementById('${resultId}');
+          form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if(!resultEl) return;
+            const fd = new FormData(form);
+            const body = {
+              url: fd.get('url'),
+              shortCodeInput: fd.get('shortCodeInput') || undefined
+            };
+            resultEl.textContent = 'Submitting...';
+            try {
+              const res = await fetch('${action}', {
+                method: 'POST',
+                headers: {'Content-Type':'application/json'},
+                body: JSON.stringify(body)
+              });
+              const json = await res.json();
+              resultEl.textContent = JSON.stringify(json, null, 2);
+            } catch (err) {
+              resultEl.textContent = 'Request failed';
+            }
+          });
+          form.querySelector('[data-reset]')?.addEventListener('click', () => {
+            form.reset();
+            if(resultEl) resultEl.textContent = 'Cleared.';
+          });
+        })();
+        `,
+      }}
+    />
+  </form>
+);
+
+const SectionCard = (props: { title: string; children: any }) => (
+  <section class="w-full max-w-4xl bg-white/60 backdrop-blur border rounded-lg p-6 flex flex-col gap-4 shadow-sm">
+    <header class="flex items-center justify-between">
+      <h2 class="font-semibold text-lg">{props.title}</h2>
+    </header>
+    <div>{props.children}</div>
+  </section>
+);
+
+const Layout = (props: { children: any }) => (
+  <main class="min-h-screen w-full flex flex-col items-center gap-10 p-6 bg-gradient-to-b from-neutral-50 to-neutral-100 font-sans">
+    <header class="w-full max-w-4xl flex flex-col gap-2">
+      <h1 class="text-3xl font-bold tracking-tight">Shortin v3</h1>
+      <p class="text-neutral-600 text-sm">
+        A minimal URL shortener powered by Hono, Google Sheets (edge REST), and
+        hono/jsx UI components.
+      </p>
+      <nav class="flex gap-4 text-sm">
+        <a href="/app" class="underline underline-offset-4 hover:text-black">
+          Home
+        </a>
+        <a
+          href="https://roadmap.sh/projects/url-shortening-service"
+          class="hover:text-black"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Idea
+        </a>
+        <a
+          href="https://hono.dev"
+          class="hover:text-black"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Hono Docs
+        </a>
+      </nav>
+    </header>
+    <div class="w-full flex flex-col items-center gap-8">{props.children}</div>
+    <footer class="mt-auto w-full max-w-4xl text-xs text-neutral-500 pt-8 pb-4">
+      Built with hono/jsx. Data stored in Google Sheets.
+    </footer>
+  </main>
+);
+
+const AppPage = () => (
+  <Layout>
+    <SectionCard title="Create a Short Link">
+      <ShortenForm />
+    </SectionCard>
+    <SectionCard title="Result">
+      <JsonResult />
+    </SectionCard>
+    <SectionCard title="API Endpoints">
+      <ul class="list-disc pl-5 space-y-1 text-sm">
+        <li>
+          <code class="bg-neutral-200 px-1 rounded">POST /shorten</code> –
+          create short URL
+        </li>
+        <li>
+          <code class="bg-neutral-200 px-1 rounded">
+            GET /&lt;shortCode&gt;
+          </code>{" "}
+          – resolve
+        </li>
+        <li>
+          <code class="bg-neutral-200 px-1 rounded">
+            GET /shorten/&lt;shortCode&gt;/stats
+          </code>{" "}
+          – visits
+        </li>
+        <li>
+          <code class="bg-neutral-200 px-1 rounded">
+            PUT /shorten/&lt;shortCode&gt;
+          </code>{" "}
+          – update destination
+        </li>
+        <li>
+          <code class="bg-neutral-200 px-1 rounded">
+            DELETE /shorten/&lt;shortCode&gt;
+          </code>{" "}
+          – delete
+        </li>
+      </ul>
+    </SectionCard>
+  </Layout>
+);
+
+/* ----------------------------------------------------------------------------
+ * App + API
+ * -------------------------------------------------------------------------- */
+
 const app = new Hono();
 
-// Rate limiting (30 requests / 5 minutes)
 app.use("*", createRateLimiter({ limit: 30, windowMs: 5 * 60 * 1000 }));
 app.use(renderer);
 
@@ -50,70 +254,8 @@ app.use(renderer);
  */
 app.get("/", (c) => c.text("Welcome to the URL Shortener API!"));
 
-// Minimal UI (non-JS graceful fallback posts form-encoded)
-app.get("/app", (c) =>
-  c.render(
-    <main class="min-h-screen flex flex-col items-center justify-center gap-6 p-6">
-      <h1 class="text-3xl font-bold">Shortin v3</h1>
-      <form
-        class="flex flex-col gap-4 w-full max-w-md"
-        method="post"
-        action="/shorten"
-        id="shorten-form"
-      >
-        <input
-          name="url"
-          placeholder="https://example.com/very/long/url"
-          class="border rounded px-3 py-2"
-          required
-        />
-        <input
-          name="shortCodeInput"
-          placeholder="Custom code (optional)"
-          class="border rounded px-3 py-2"
-        />
-        <button
-          type="submit"
-          class="bg-black text-white rounded px-4 py-2 hover:bg-neutral-800"
-        >
-          Shorten
-        </button>
-      </form>
-      <pre
-        id="result"
-        class="bg-neutral-100 rounded p-4 w-full max-w-md text-sm overflow-x-auto"
-      >
-        Paste the JSON response here.
-      </pre>
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `
-            (function(){
-              const f=document.getElementById('shorten-form');
-              const r=document.getElementById('result');
-              if(!f)return;
-              f.addEventListener('submit',async(e)=>{
-                e.preventDefault();
-                const fd=new FormData(f);
-                const body={
-                  url: fd.get('url'),
-                  shortCodeInput: fd.get('shortCodeInput')||undefined
-                };
-                try{
-                  const res=await fetch('/shorten',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
-                  const json=await res.json();
-                  r.textContent=JSON.stringify(json,null,2);
-                }catch(err){
-                  r.textContent='Request failed';
-                }
-              });
-            })();
-          `,
-        }}
-      />
-    </main>,
-  ),
-);
+// Component-driven UI route
+app.get("/app", (c) => c.render(<AppPage />));
 
 // Schemas
 const shortenSchema = z.object({
