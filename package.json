@@ -12,8 +12,8 @@
   },
   "dependencies": {
     "@fontsource-variable/plus-jakarta-sans": "^5.2.8",
+    "@hono/zod-validator": "^0.2.2",
     "@tailwindcss/vite": "^4.1.14",
-    "googleapis": "^161.0.0",
     "hono": "^4.9.9",
     "hono-rate-limiter": "^0.4.2",
     "tailwindcss": "^4.1.14"
@@ -21,6 +21,8 @@
   "devDependencies": {
     "@biomejs/biome": "2.2.5",
     "@cloudflare/vite-plugin": "^1.2.3",
+    "@types/node": "^20.11.19",
+    "@types/uuid": "^9.0.0",
     "vite": "^6.3.5",
     "vite-ssr-components": "^0.5.1",
     "wrangler": "^4.17.0"
